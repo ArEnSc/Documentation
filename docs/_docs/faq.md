@@ -87,6 +87,12 @@ UIKit Auto Layout and InterfaceBuilder are not supported by AsyncDisplayKit. It 
 However, AsyncDisplayKit's <a href = "automatic-layout-basics.html">Layout API</a> provides a variety of <a href = "automatic-layout-containers.html">ASLayoutSpec objects</a> that allow implementing automatic layout which is more efficient (multithreaded, off the main thread), easier to debug (can step into the code and see where all values come from, as it is open source), and reusable (you can build composable layouts that can be shared with different parts of the UI).
 <br>
 
+
+### Why is my ASDK causing my ASDisplayNodes to Flicker ?
+<br>
+When setting up a ASDisplayNode or it's subclasses, ensure that you are NOT accessing UIKit (ASDisplayNode.view, ASDisplayNode.layer) and properties from the background thread, UIKit is not threadsafe.
+If you do this it will likely cause flickering, when there is a layout triggered at some point for your node hierarchy on the background thread. 
+<br>
 ### ASDisplayNode keep alive reference
 
 <div class = "highlight-group">
